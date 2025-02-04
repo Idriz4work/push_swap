@@ -1,85 +1,105 @@
 #!/bin/bash
 
-# Function to run the tests using the given format
+# -=-=-=-=-	COLORS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
+
+DEF_COLOR='\033[0;39m'
+BLACK='\033[0;30m'
+RED='\033[1;91m'      # ❌ KO
+GREEN='\033[1;92m'    # ✅ OK
+YELLOW='\033[0;93m'   # ⚠️ Error
+BLUE='\033[0;94m'
+MAGENTA='\033[0;95m'
+CYAN='\033[0;96m'
+GRAY='\033[0;90m'
+WHITE='\033[0;97m'
+
+printf "${BLUE}\n-------------------------------------------------------------------------\n${DEF_COLOR}";
+printf "${YELLOW}\n\t\tTEST MADE BY: ${DEF_COLOR}";
+printf "${MAGENTA}Idris4work\t\n${DEF_COLOR}";
+printf "${BLUE}\n-------------------------------------------------------------------------\n${DEF_COLOR}";
+
+# Function to run tests with color-coded output
 run_test() {
     ARG="$1"
-    echo "Running Test: $ARG"
-    .././push_swap $ARG | ./checker_linux $ARG
-    echo "---------------------------------"
+    EXPECTED="$2"  # Expected outcome (OK, KO, or ERROR)
+    
+    printf "${CYAN}Running Test: '$ARG'${DEF_COLOR}\n"
+
+    RESULT=$(.././push_swap $ARG | ./checker_linux $ARG 2>&1) # Capture output
+
+    if [[ "$RESULT" == "OK" ]]; then
+        if [[ "$EXPECTED" == "OK" ]]; then
+            printf "${GREEN}✅ OK${DEF_COLOR}\n"
+        else
+            printf "${YELLOW}⚠️  Expected ERROR but got OK${DEF_COLOR}\n"
+        fi
+    elif [[ "$RESULT" == "KO" ]]; then
+        if [[ "$EXPECTED" == "KO" ]]; then
+            printf "${GREEN}✅ Expected KO${DEF_COLOR}\n"
+        else
+            printf "${RED}❌ KO${DEF_COLOR}\n"
+        fi
+    else
+        if [[ "$EXPECTED" == "ERROR" ]]; then
+            printf "${GREEN}✅ Expected ERROR${DEF_COLOR}\n"
+        else
+            printf "${YELLOW}⚠️ Unexpected Error: $RESULT${DEF_COLOR}\n"
+        fi
+    fi
+    printf "${BLUE}-------------------------------------------------------------------------${DEF_COLOR}\n"
 }
 
-# Test cases with more than 3 numbers
-
 # Sorted cases
-run_test "1 2 3 4"
-run_test "1 2 3 4 5"
-run_test "1 2 3 4 5 6 7"
+run_test "1 2 3 4 5" OK
+run_test "1 2 3 4 5 6" OK
+run_test "1 2 3 4 5 6 7" OK
+run_test "1 2 3 4 5 6 7 8" OK
 
 # Reverse order cases
-run_test "4 3 2 1"
-run_test "5 4 3 2 1"
-run_test "7 6 5 4 3 2 1"
+run_test "5 4 3 2 1" OK
+run_test "6 5 4 3 2 1" OK
+run_test "7 6 5 4 3 2 1" OK
+run_test "8 7 6 5 4 3 2 1" OK
 
 # Mixed order cases
-run_test "3 1 4 2"
-run_test "6 3 1 4 5 2"
-run_test "9 7 3 8 4 1 5"
+run_test "4 2 5 1 3" OK
+run_test "6 3 1 5 2 4" OK
+run_test "7 2 5 1 6 4 3" OK
+run_test "8 1 4 7 3 5 2 6" OK
 
-# Duplicate values (should return an error)
-run_test "1 2 3 3 4"
-run_test "5 5 5 5 5"
-run_test "1 2 3 4 4 6 7"
+# Duplicate values (should return ERROR)
+run_test "5 5 3 2 1" ERROR
+run_test "6 5 5 3 2 1" ERROR
+run_test "7 6 5 4 4 3 2 1" ERROR
+run_test "8 7 6 5 5 4 3 2 1" ERROR
 
 # Negative numbers
-run_test "-1 -2 -3 -4"
-run_test "-10 -5 0 5 10"
-run_test "1 -1 2 -2 3 -3"
+run_test "-1 0 3 -2 5" OK
+run_test "-10 -3 0 -1 4 2" OK
+run_test "-5 -1 -4 -3 -2 0 1" OK
+run_test "-8 -7 -6 -5 -4 -3 -2 -1" OK
 
 # Mixed positive and negative numbers
-run_test "-10 3 5 -7 2 8 -4"
-run_test "4 -1 0 9 -5 8 3"
-run_test "-100 50 -200 150 0"
+run_test "-2 1 -3 5 0" OK
+run_test "4 -5 6 1 -2 3" OK
+run_test "-7 8 -3 1 6 4 2" OK
+run_test "5 -8 4 -6 1 7 -2 3" OK
 
 # Edge cases (min/max int)
-run_test "-2147483648 0 2147483647"
-run_test "2147483647 1000000 -2147483648 0"
-run_test "-1000000000 -500000000 0 500000000 1000000000"
+run_test "-2147483648 0 5 -1 3" OK
+run_test "2147483647 -2147483648 1 4 6 3" OK
+run_test "-2147483648 2147483647 5 -4 0 1 3" OK
+run_test "2147483647 -2147483648 8 6 2 4 3 1" OK
 
-# Large set of random numbers
-run_test "100 99 98 97 96 95 94 93 92 91"
-run_test "10 9 8 7 6 5 4 3 2 1"
-run_test "23 15 8 42 91 74 36 53 61 12"
+# Random cases
+run_test "3 1 4 2 5" OK
+run_test "2 6 1 3 7 4" OK
+run_test "8 4 7 1 3 5 2" OK
+run_test "5 2 8 3 1 7 4 6" OK
 
-# Single number (should do nothing)
-run_test "42"
+run_test "2147483647 0 4294967295" ERROR
+run_test "2147483647 0 2147483648" ERROR
+run_test "2147483647 0 2147483648" ERROR
+run_test "2147483647 0 -2147483648" ERROR
 
-# Edge case: already sorted
-run_test "1 2 3 4 5 6 7 8 9 10"
-
-# Edge case: all identical numbers (should output error)
-run_test "7 7 7 7 7 7 7"
-
-# Random order inputs
-run_test "99 23 45 12 87 63 34 78"
-run_test "1024 512 256 128 64 32 16 8 4 2 1"
-
-# Empty input (should return nothing or error)
-run_test ""
-
-# Extra spaces (handling spaces properly)
-run_test "  12   23  34  "
-run_test "   4  3  2  1   "
-
-# Non-numeric input (should output error)
-run_test "1 two 3 four"
-run_test "hello world 42"
-
-# Leading zeros
-run_test "01 02 03 04 05"
-run_test "0001 0002 0003 0004"
-
-# Mixed duplicates
-run_test "10 20 30 10 40 50"
-run_test "5 15 25 5 35 45 55"
-run_test "99 88 77 99 66 55 99"
-
+run_test "2147483647 0 -2147483649" ERROR

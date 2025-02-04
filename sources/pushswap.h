@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:43 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/02 05:24:01 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:29:03 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@ typedef struct t_casehandler
 	long	first;
 	long	second;
 	long	last;
-} t_case;
-
+	long	value;
+	long	size;
+}			t_case;
 
 // algorithm
 void		osman_sort_algorithm(t_list **stack_a, t_list **stack_b);
-//void	handle_edge_three_two(t_list **stack_a, t_list **stack_b, t_case *n);
-//void	handle_edge_three(t_list **stack_a, t_list **stack_b);
-//void	handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
-//void	process_values(t_list **stack_a, t_list **stack_b);
-
+void		osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b);
+void		handle_edge_three_two(t_list **stack_a, t_list **stack_b,
+				t_case *n);
+void		handle_edge_three(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_four_two(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
 
 // void		merge(t_stack_top *stak, int left[], int right[]);
 // void		merge_sort(t_stack_top **stacks);
@@ -67,5 +69,6 @@ int			check_sorted(t_list *stack_a);
 int			initialize_stack(t_list **stack_a, t_list **stack_b);
 static int	is_valid_number(char *str);
 int			handle_ops(char **argv);
+long		ft_atol(char *s);
 
 #endif

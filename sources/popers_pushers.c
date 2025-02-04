@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:32:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/02 05:31:00 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:36:42 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	push_a(long value, t_list **stack_a)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_a;
 	*stack_a = newnode;
+	ft_printf("pa\n");
 }
 
 void	push_b(long value, t_list **stack_b)
@@ -34,6 +35,7 @@ void	push_b(long value, t_list **stack_b)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_b;
 	*stack_b = newnode;
+	ft_printf("pb\n");
 }
 
 void	pop_a(t_list **stack_a)
@@ -45,6 +47,7 @@ void	pop_a(t_list **stack_a)
 	temp = *stack_a;
 	*stack_a = temp->next;
 	free(temp);
+	temp = NULL;
 }
 
 void	pop_b(t_list **stack_b)
@@ -56,11 +59,12 @@ void	pop_b(t_list **stack_b)
 	temp = *stack_b;
 	*stack_b = temp->next;
 	free(temp);
+	temp = NULL;
 }
 
 void	print_stack(t_list **stack)
 {
-	t_list *current;
+	t_list	*current;
 
 	current = *stack;
 	while (current != NULL)

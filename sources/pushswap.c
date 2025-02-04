@@ -6,71 +6,11 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/02 05:26:20 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:47:35 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
-
-void	handle_edge_three_two(t_list **stack_a, t_list **stack_b, t_case *n)
-{
-	n->first = (long)((*stack_a)->content);
-	n->second = (long)((*stack_a)->next->content);
-	n->last = (long)((*stack_a)->next->next->content);
-	if (n->first > n->second && n->first > n->last && n->second < n->last)
-	{
-		rotate_a(stack_a);
-		return ;
-	}
-	if (n->second > n->first && n->second > n->last && n->first < n->last)
-	{
-		swap_a(stack_a);
-		rotate_a(stack_a);
-		return ;
-	}
-	if (n->first > n->second && n->first < n->last)
-	{
-		swap_a(stack_a);
-		return ;
-	}
-	if (n->first < n->second && n->first > n->last)
-		reverse_rotate_a(stack_a);
-}
-
-void	handle_edge_three(t_list **stack_a, t_list **stack_b, t_case *n)
-{
-	n->first = (long)((*stack_a)->content);
-	n->second = (long)((*stack_a)->next->content);
-	n->last = (long)((*stack_a)->next->next->content);
-	if (n->first < n->second && n->second < n->last)
-		return ;
-	if (n->first > n->second && n->second > n->last)
-	{
-		swap_a(stack_a);
-		reverse_rotate_a(stack_a);
-		return ;
-	}
-	else
-		handle_edge_three_two(stack_a, stack_b, n);
-}
-
-void	handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n)
-{
-	long	third;
-
-	n->first = (long)((*stack_a)->content);
-	n->second = (long)((*stack_a)->next->content);
-	third = (long)((*stack_a)->next->next->content);
-	n->last = (long)((*stack_a)->next->next->next->content);
-	// if a < b < c < d
-	if (n->first < n->second && n->second < third && third < n->last)
-		return ;
-	push_b((long)(void *)(*stack_a)->content,stack_b);
-	pop_a(stack_a);
-	handle_edge_three(stack_a,stack_b,n);
-	push_a((long)(*stack_b)->content,stack_a);
-	pop_b(stack_b);
-}
 
 void	process_values(t_list **stack_a, t_list **stack_b)
 {
@@ -109,26 +49,42 @@ t_list	*fill_stack(char **values)
 		return (NULL);
 	}
 	while (values[i] != NULL)
+	{
+		if (ft_atol(values[i]) > 2147483647 || ft_atol(values[i]) < -2147483648)
+		{
+			ft_printf("Error\n");
+			return (NULL);
+		}
 		i++;
+	}
 	i--;
 	while (i >= 1)
 		push_a(ft_atoi(values[i--]), &stack_a);
 	// print_stack(&stack_a);
 	process_values(&stack_a, &stack_b);
+	// ft_printf("b: ");
+	// print_stack(&stack_b);
+	// ft_printf("\na: ");
 	// print_stack(&stack_a);
 	return (stack_a);
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*stak;
-
-	if (argc < 2)
+	if (argc <= 2)
 		return (-1);
 	if (handle_ops(argv) == -1)
 		return (-2);
-	stak = fill_stack(argv);
-	if (stak == NULL)
+	if (fill_stack(argv) == NULL)
 		return (-3);
 	return (0);
 }
+
+// #include <stdio.h>
+// #include <limits.h>
+
+// int main() {
+//     printf("Max long: %ld\n", LONG_MAX);
+//     printf("Max unsigned long: %lu\n", ULONG_MAX);
+//     return (0);
+// }

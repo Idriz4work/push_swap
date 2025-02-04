@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 21:55:49 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/02 04:47:53 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:28:41 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,31 @@ int	check_sorted(t_list *stack)
 		return (index);
 	}
 	exit(1);
+}
+
+long ft_atol(char *s)
+{
+	long	i;
+	long	endresult;
+	long	is_op;
+
+	i = 0;
+	endresult = 0;
+	is_op = 1;
+	while ((s[i] == ' ') || (s[i] >= 9 && s[i] <= '\r'))
+		i++;
+	if (s[i] == '+' || s[i] == '-' || s[i] == ' ')
+	{
+		if (s[i] == '-')
+			is_op = -1;
+		i++;
+	}
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		endresult = endresult * 10 + s[i] - '0';
+		i++;
+	}
+	return (is_op * endresult);
 }
 
 int	initialize_stack(t_list **stack_a, t_list **stack_b)
