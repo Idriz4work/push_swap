@@ -6,13 +6,13 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:32:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/04 10:36:42 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:26:34 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-void	push_a(long value, t_list **stack_a)
+void	push_a(long value, t_list **stack_a, int *op_count)
 {
 	t_list	*newnode;
 
@@ -22,10 +22,11 @@ void	push_a(long value, t_list **stack_a)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_a;
 	*stack_a = newnode;
+	(*op_count)++;
 	ft_printf("pa\n");
 }
 
-void	push_b(long value, t_list **stack_b)
+void	push_b(long value, t_list **stack_b, int *op_count)
 {
 	t_list	*newnode;
 
@@ -35,6 +36,7 @@ void	push_b(long value, t_list **stack_b)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_b;
 	*stack_b = newnode;
+	(*op_count)++;
 	ft_printf("pb\n");
 }
 
