@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/04 13:47:35 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:49:55 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_list	*fill_stack(char **values)
 		push_a(ft_atoi(values[i--]), &stack_a);
 	// print_stack(&stack_a);
 	process_values(&stack_a, &stack_b);
-	// ft_printf("b: ");
-	// print_stack(&stack_b);
-	// ft_printf("\na: ");
-	// print_stack(&stack_a);
+	ft_printf("b: ");
+	print_stack(&stack_b);
+	ft_printf("\na: ");
+	print_stack(&stack_a);
 	return (stack_a);
 }
 
