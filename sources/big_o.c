@@ -6,32 +6,11 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:45:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/05 13:36:43 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:05:05 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
-
-int	calculate_average(t_list **stack_a)
-{
-	int		n;
-	int		sum;
-	int		average;
-	t_list	*tmp;
-
-	average = 0;
-	sum = 0;
-	n = 0;
-	tmp = (*stack_a);
-	while (n < ft_lstsize(*(stack_a)))
-	{
-		sum = sum + (long)tmp->content;
-		n++;
-	}
-	average = sum / n;
-	return (average);
-}
-
 // #include "big_o.h"
 // #include <string.h>
 

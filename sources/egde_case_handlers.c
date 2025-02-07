@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 06:42:54 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/05 13:47:26 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:24:23 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ void    handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n, int *op_
         return;
     
     push_b((long)(void *)(*stack_a)->content, stack_b,op_count);
-    pop_a(stack_a);
+    pop(stack_a);
 
     handle_edge_three(stack_a, stack_b, n, op_count);
     
     push_a((long)(*stack_b)->content, stack_a,op_count);
-    pop_b(stack_b);
+    pop(stack_b);
 
     handle_edge_four_two(stack_a, stack_b, n, op_count);
 }

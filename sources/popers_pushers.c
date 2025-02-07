@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:32:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/05 13:26:34 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:21:04 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,14 @@ void	push_b(long value, t_list **stack_b, int *op_count)
 	ft_printf("pb\n");
 }
 
-void	pop_a(t_list **stack_a)
+void	pop(t_list **stack)
 {
 	t_list	*temp;
 
-	if (*stack_a == NULL)
+	if (*stack == NULL)
 		return ;
-	temp = *stack_a;
-	*stack_a = temp->next;
-	free(temp);
-	temp = NULL;
-}
-
-void	pop_b(t_list **stack_b)
-{
-	t_list	*temp;
-
-	if (*stack_b == NULL)
-		return ;
-	temp = *stack_b;
-	*stack_b = temp->next;
+	temp = *stack;
+	*stack = temp->next;
 	free(temp);
 	temp = NULL;
 }

@@ -6,12 +6,27 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:46 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/05 13:28:19 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:54:14 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
+void	rotate(t_list **stack)
+{
+	t_list	*first;
+	t_list	*last;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+		return ;
+	first = *stack;
+	*stack = first->next;
+	last = *stack;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = first;
+	first->next = NULL;
+}
 
 // Operations implementations
 void rotate_a(t_list **stack_a, int *op_count)

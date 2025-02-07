@@ -4,7 +4,7 @@ CFLAGS = -g -fPIE #-Wall -Wextra -Werror
 RM = rm -f
 
 # Source files
-SRCS =  sources/merge_algorithm.c sources/osman_sort_algo.c  sources/input_validator.c sources/pushswap.c sources/swapy.c sources/popers_pushers.c sources/rotate_ops.c
+SRCS =  sources/merge_algorithm.c sources/osman_iki.c sources/utils.c sources/big_o.c sources/osman_sort_algo.c  sources/input_validator.c sources/egde_case_handlers.c  sources/pushswap.c sources/swapy.c sources/popers_pushers.c sources/rotate_ops.c
 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS:.c=.o)
