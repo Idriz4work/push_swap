@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:46:08 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/12 19:27:28 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:29:46 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 // this is the last function that makes sure that everything is sorted in the ascending order in stack a
 // this gets called last
-
 void	forwords_sorter(t_list **stack_b, int num_rotates, int *op_count)
 {
 	while (num_rotates > 0)
@@ -31,50 +30,6 @@ void	backwards_sorter(t_list **stack_b, int num_reverse_op, int *op_count)
 		reverse_rotate_b(stack_b, op_count);
 		num_reverse_op--;
 	}
-}
-
-void	check_for_top_max(t_list **stack_a, t_list **stack_b, int *op_count,
-		rot_number *rots)
-{
-	int		largest;
-	t_list	*tmp;
-	int		position;
-	int		current_pos;
-	int		stack_size;
-
-	ft_printf("CHECK FOR RIGHT ORDER OF STACK B\n");
-	// Reset variables for each iteration
-	largest = INT_MIN;
-	position = 0;
-	current_pos = 0;
-	tmp = *stack_b;
-	stack_size = ft_lstsize(*stack_b);
-	// Find largest number and its position
-	while (tmp)
-	{
-		if ((long)tmp->content > largest)
-		{
-			largest = (long)tmp->content;
-			position = current_pos;
-		}
-		tmp = tmp->next;
-		current_pos++;
-	}
-	// Choose rotation direction and perform rotations
-	// If position is less than half of stack_size, rotate forward
-	// Otherwise, rotate backward to bring the largest element to the top
-	if (position <= stack_size / 2)
-		forwords_sorter(stack_b, position, op_count); // Rotate forward for ascending order
-	else
-		backwards_sorter(stack_b, stack_size - position, op_count); // Reverse rotate for descending order
-
-	ft_printf("PUSHING STACK B 2 STACK A\n");
-	rotate_b(stack_b,op_count);
-	printf("STACK B: \n");
-	print_stack(stack_b); // Print stack B for debugging
-	// Now push elements from Stack B to Stack A
-	while (*stack_b)
-		push_a((long)(*stack_b)->content, stack_a, stack_b, op_count);
 }
 
 // calculates the number of ops that it takes to rotate the num value which is the current number in the given stack (a or b)
@@ -99,61 +54,98 @@ int	cost_of_gettop_a(int current, t_list **stack_a)
 // finds the number that needs to be 1 before the top value which means that the number needs to be
 // rotated to the top and then the top value gets pushed to the top
 // finds the number that should be right before the given top value in descending order
-int	find_next_smallest(int top, t_list **stack_b)
+// Find the number that should be right before the given top value in ascending order
+int find_next_largest(int top, t_list **stack_b)
 {
-	int		current;
-	t_list	*tmp;
+    int     current;
+    t_list  *tmp;
 
-	tmp = (*stack_b);
-	current = INT_MIN; // Start with minimum possible value
-	while (tmp)
-	{
-		// Find the largest number that's still smaller than top
-		// printf("Cur: %i contender: %i\n", current, (int)tmp->content);
-		if ((long)tmp->content < top && (long)tmp->content > current)
-			current = (long)tmp->content;
-		tmp = tmp->next;
-	}
-	// If no valid smaller number is found, return the largest number in stack_b
-	if (current == INT_MIN)
-	{
-		tmp = (*stack_b);
-		current = (long)tmp->content;
-		while (tmp)
-		{
-			if ((long)tmp->content > current)
-				current = (long)tmp->content;
-			tmp = tmp->next;
-		}
-	}
-	// printf("Next smallest for %i is %i\n", top, current);
-	return (current);
+    tmp = (*stack_b);
+    current = INT_MAX;  // Start with maximum possible value
+    while (tmp)
+    {
+        // Find the smallest number that's still larger than top
+        if ((long)tmp->content > top && (long)tmp->content < current)
+            current = (long)tmp->content;
+        tmp = tmp->next;
+    }
+    // If no valid larger number is found, return the smallest number in stack_b
+    if (current == INT_MAX)
+    {
+        tmp = (*stack_b);
+        current = (long)tmp->content;
+        while (tmp)
+        {
+            if ((long)tmp->content < current)
+                current = (long)tmp->content;
+            tmp = tmp->next;
+        }
+    }
+    return (current);
 }
 
-// calculates the number of rotate ops to put the num above the number
-// which would result in the number that is nearest to it (the number that is excep)
-// calculates the number of rotate operations needed to put the number in correct position
-int	cost_moving_position_b(int num, t_list **stack_b)
+void check_for_top_min(t_list **stack_a, t_list **stack_b, int *op_count,
+        rot_number *rots)
 {
-	int		num_ops;
-	t_list	*tmp;
-	int		target;
+    int     largest;  // Changed from smallest to largest
+    t_list  *tmp;
+    int     position;
+    int     current_pos;
+    int     stack_size;
 
-	num_ops = 0;
-	tmp = *stack_b;
-	target = find_next_smallest(num, stack_b);
-	// First, find the position of the target number
-	while (tmp && (long)tmp->content != target)
-	{
-		num_ops++;
-		tmp = tmp->next;
-	}
-	// If we found the target, we need one more rotation to position above it
-	if (tmp)
-		num_ops = (num_ops + 1) % ft_lstsize(*stack_b);
-	return (num_ops);
+    // ft_printf("CHECK FOR RIGHT ORDER OF STACK B\n");
+    largest = INT_MIN;  // Changed back to INT_MIN
+    position = 0;
+    current_pos = 0;
+    tmp = *stack_b;
+    stack_size = ft_lstsize(*stack_b);
+
+    // Find largest number and its position
+    while (tmp)
+    {
+        if ((long)tmp->content > largest)  // Changed back to >
+        {
+            largest = (long)tmp->content;
+            position = current_pos;
+        }
+        tmp = tmp->next;
+        current_pos++;
+    }
+
+    // Choose rotation direction and perform rotations
+    if (position <= stack_size / 2)
+        forwords_sorter(stack_b, position, op_count);
+    else
+        backwards_sorter(stack_b, stack_size - position, op_count);
+
+    // ft_printf("PUSHING STACK B 2 STACK A\n");
+    // print_stack(stack_b);
+    while (*stack_b)
+        push_a((long)(*stack_b)->content, stack_a, stack_b, op_count);
+    // print_stack(stack_a);
 }
 
+int cost_moving_position_b(int num, t_list **stack_b)
+{
+    int     num_ops;
+    t_list  *tmp;
+    int     target;
+
+    num_ops = 0;
+    tmp = *stack_b;
+    target = find_next_largest(num, stack_b);  // Changed from find_next_smallest to find_next_largest
+    
+    // First, find the position of the target number
+    while (tmp && (long)tmp->content != target)
+    {
+        num_ops++;
+        tmp = tmp->next;
+    }
+    // If we found the target, we need one more rotation to position above it
+    if (tmp)
+        num_ops = (num_ops + 1) % ft_lstsize(*stack_b);
+    return (num_ops);
+}
 // goes throu all elemnts in stack a and calculates the moves to put current value
 // into right position in stack b,
 // the index of shortest number of ops gets returned
@@ -247,7 +239,8 @@ void	osman_sort_algorithm(t_list **stack_a, t_list **stack_b, int *op_count)
 	push_b((long)(*stack_a)->content, stack_b, stack_a, op_count);
 	push_b((long)(*stack_a)->content, stack_b, stack_a, op_count);
 	osman_sort_algorithm_two(stack_a, stack_b, op_count);
-	print_stack(stack_b);
+	// print_stack(stack_b);
 	// final check
-	check_for_top_max(stack_a, stack_b, op_count, &rots);
+	check_for_top_min(stack_a, stack_b, op_count, &rots);
+	// print_stack(stack_a);
 }

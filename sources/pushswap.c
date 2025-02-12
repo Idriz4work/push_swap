@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/07 14:47:03 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:34:09 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 		handle_edge_four(stack_a, stack_b, &n, &op_count);
 	else
 		osman_sort_algorithm(stack_a, stack_b, &op_count);
-	print_stack(stack_a);
-	print_stack(stack_b);
+	// print_stack(stack_a);
+	// print_stack(stack_b);
 	// osmani_iki(stack_a,stack_b,&op_count);
-	ft_printf("-----------------\nOP COUNT: %i\n----------------", op_count);
+	// ft_printf("-----------------\nOP COUNT: %i\n----------------", op_count);
 }
 
 int	process_values_two(char **values)

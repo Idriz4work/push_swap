@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:46 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/12 14:34:50 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:27:56 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void rotate_a(t_list **stack_a, int *op_count)
         last = last->next;
     last->next = first;
     first->next = NULL;
-    // ft_printf("ra\n");
+    ft_printf("ra\n");
     (*op_count)++;
 }
 
@@ -61,7 +61,7 @@ void rotate_b(t_list **stack_b, int *op_count)
         last = last->next;
     last->next = first;
     first->next = NULL;
-    // ft_printf("rb\n");
+    ft_printf("rb\n");
     (*op_count)++;
 }
 
