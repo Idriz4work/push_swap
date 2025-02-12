@@ -6,26 +6,26 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:46 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/07 09:54:14 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:34:50 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
-
-void	rotate(t_list **stack)
+t_list*	rotate(t_list *stack_a)
 {
-	t_list	*first;
-	t_list	*last;
+    t_list *first;
+    t_list *last;
 
-	if (*stack == NULL || (*stack)->next == NULL)
-		return ;
-	first = *stack;
-	*stack = first->next;
-	last = *stack;
-	while (last->next != NULL)
-		last = last->next;
-	last->next = first;
-	first->next = NULL;
+    if (stack_a == NULL || stack_a->next == NULL)
+        return NULL;
+    first = stack_a;
+    stack_a = first->next;
+    last = stack_a;
+    while (last->next != NULL)
+        last = last->next;
+    last->next = first;
+    first->next = NULL;
+	return first;
 }
 
 // Operations implementations
@@ -43,7 +43,7 @@ void rotate_a(t_list **stack_a, int *op_count)
         last = last->next;
     last->next = first;
     first->next = NULL;
-    ft_printf("ra\n");
+    // ft_printf("ra\n");
     (*op_count)++;
 }
 
@@ -61,7 +61,7 @@ void rotate_b(t_list **stack_b, int *op_count)
         last = last->next;
     last->next = first;
     first->next = NULL;
-    ft_printf("rb\n");
+    // ft_printf("rb\n");
     (*op_count)++;
 }
 

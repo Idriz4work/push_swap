@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:43 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/07 11:21:17 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:46:13 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ typedef struct s_stack
 	t_list	*b;
 }			t_stack_top;
 
+typedef struct s_order{
+	int order_of_a;
+	int order_of_b;
+} rot_number;
+
 typedef struct t_casehandler
 {
 	long	first;
@@ -34,8 +39,6 @@ typedef struct t_casehandler
 }			t_case;
 
 // algorithm
-void		osmani_iki(t_list **stack_a, t_list **stack_b, int *op_count);
-
 void		osman_sort_algorithm(t_list **stack_a, t_list **stack_b, int *op);
 void		osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b,
 				int *op);
@@ -56,11 +59,11 @@ void		handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n,
 
 // Operation function declarations with operation counter
 void		print_stack(t_list **stak);
-void		push_a(long value, t_list **stack_a, int *op_count);
-void		push_b(long value, t_list **stack_b, int *op_count);
+void		push_a(long value, t_list **stack_a,t_list **stack_b, int *op_count);
+void		push_b(long value, t_list **stack_b,t_list **stack_a, int *op_count);
 void		pop(t_list **stack);
 
-void		rotate(t_list **stack);
+t_list*		rotate(t_list *stack);
 void		rotate_a(t_list **stack_a, int *op_count);
 void		rotate_b(t_list **stack_b, int *op_count);
 void		rotate_anb(t_list **stack_a, t_list **stack_b, int *op_count);
