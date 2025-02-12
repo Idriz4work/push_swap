@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:43 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/12 14:46:13 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:23:01 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ static int	is_valid_number(char *str);
 int			handle_ops(char **argv);
 long		ft_atol(char *s);
 int			calculate_biggest(t_list **stack_a);
-int			is_sorted(t_list *stack);
 
 #endif

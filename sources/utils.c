@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:05:10 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:27:01 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:22:58 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,3 @@ int	calculate_biggest(t_list **stack_a)
 	}
 	return (sum);
 }
-
-int	is_sorted(t_list *stack)
-{
-	while (stack && stack->next)
-	{
-		if (stack->content > stack->next->content) 
-			return (-1);
-		stack = stack->next;
-	}
-	return (0); 
-}
-
-
