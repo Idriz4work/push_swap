@@ -12,6 +12,59 @@ The project implements the Osman sort algorithm, an efficient approach that achi
 - **Turk Sort Inspiration**: While sharing some concepts with Turk sort, Osman sort implements distinct optimizations and decision-making processes
 - **Performance**: Consistently achieves sub-700 operation counts for 100-number sets, making it highly competitive for the Push Swap project requirements
 
+## Detailed Implementation Steps
+
+### Initialization Phase
+1. Push the first two elements from stack A to stack B to establish initial smallest and largest numbers
+2. These elements serve as reference points for subsequent comparisons
+
+### Main Sorting Process
+1. **Cost Calculation**:
+   - For each number in stack A, calculate the total operations needed to place it in the correct position in stack B
+   - Compare each number with stack B's smallest and largest values
+   
+2. **Optimal Move Selection**:
+   - Choose the number requiring the minimum total operations
+   - Calculate required rotations for both stacks
+   - Execute simultaneous rotations when possible to optimize operation count
+
+3. **Three-Element Optimization**:
+   - Stop pushing to stack B when three elements remain in stack A
+   - Perform quick sort on these remaining elements
+
+4. **Final Organization**:
+   - Push elements back to stack A in correct order
+   - Perform final rotations to position smallest number at top
+
+## Flow Chart
+```mermaid
+graph TD
+    A[Start] --> B[Push 2 elements to Stack B]
+    B --> C[Calculate costs for each number in Stack A]
+    C --> D[Find number with minimum operations]
+    D --> E[Execute rotations]
+    E --> F[Push to Stack B]
+    F --> G{Stack A has > 3 elements?}
+    G -->|Yes| C
+    G -->|No| H[Sort remaining 3 elements]
+    H --> I[Push back to Stack A]
+    I --> J[Final rotation]
+    J --> K[End]
+```
+
+## Visualizer
+The project includes a visualizer tool to help understand the sorting process:
+- Real-time visualization of stack operations
+- Color-coded elements to track movements
+- Step-by-step execution view
+- Operation count display
+
+To use the visualizer:
+```bash
+# Run with visualizer
+./push_swap_visualizer
+```
+
 ## How it Works
 The program takes a list of integers as input in stack A, with stack B initially empty. Using a combination of push, swap, and rotate operations, the program must sort all numbers in ascending order in stack A, with stack B empty at the end.
 
@@ -30,50 +83,60 @@ The program takes a list of integers as input in stack A, with stack B initially
 | `rrb` | Reverse rotate stack B (last element becomes first) |
 | `rrr` | Execute `rra` and `rrb` simultaneously |
 
-## Implementation Details
-The program:
-1. Takes a list of integers as input
-2. Can optionally normalize/index the numbers for easier handling
-3. Implements all required stack operations
-4. Uses the Osman sort algorithm to minimize operations
-5. Outputs the sequence of operations needed to sort the stack
+## Checker Program
+The checker program is a crucial component for validation:
 
-## Example
-Initial state:
+### Features
+- Reads operations from standard input
+- Validates operation syntax
+- Executes operations on the stacks
+- Verifies final sorted state
+
+### Error Handling
+- Empty strings
+- Non-numeric parameters
+- Duplicates
+- Invalid instructions
+- Memory management
+
+### Usage
+```bash
+# Run checker independently
+./checker 4 67 3 87 23
+
+# Pipe push_swap output to checker
+./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
 ```
-Stack A: 2 1 3 6 5 8
-Stack B: (empty)
+
+### Output
+- `OK`: Stack is properly sorted
+- `KO`: Stack is not sorted
+- `Error`: Invalid input or operations
+
+## Installation & Usage
+```bash
+# Compile both programs
+make
+
+# Run push_swap
+./push_swap 4 67 3 87 23
+
+# Validate with checker
+./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
 ```
-After some operations:
-```
-Stack A: 1 2 3 5 6 8
-Stack B: (empty)
-```
-The program outputs the sequence of operations performed to achieve the sort.
+
+## Project Requirements
+- Conforms to 42 Norm
+- Uses only allowed libc functions: write, read, malloc, free, exit
+- No memory leaks
+- Comprehensive error handling
+- No unexpected terminations
 
 ## Algorithm Considerations
 - Osman sort actively calculates operation costs for each potential move
 - Different approaches may be needed for different input sizes
 - Optimization is crucial for performance benchmarks
 - Numbers can be normalized/indexed to simplify the sorting process
-
-## Installation & Usage
-```bash
-# Compile
-make
-# Run with a list of integers
-./push_swap 4 67 3 87 23
-# Check if the solution is valid (bonus)
-./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
-```
-
-## Bonus: Checker Program
-The checker program validates the sorting operations:
-- Takes the same integer list as input
-- Reads and executes sorting operations
-- Displays "OK" if the stack is properly sorted
-- Displays "KO" if the stack is not sorted
-- Displays "Error" for invalid inputs
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
