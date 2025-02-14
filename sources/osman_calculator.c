@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:31:54 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 19:08:32 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:29:05 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,48 +116,52 @@ void	cost_of_gettop_a(int current, t_list **stack_a, int index,
 	position_decider_a(position, size, rots);
 }
 
+static  int smallest(int a, int b, int c, int d)
+{
+    int cur;
+    cur = a;
+    if (b < cur)
+        cur = b;
+    if (c < cur)
+        cur = c;
+    if (d < cur)
+        cur = d;
+    return (cur);
+}
 // goes through all elements in stack a and calculates the moves to put the current value
 // into the right position in stack b,
 // the index of shortest number of ops gets returned
-int	calculator_op(t_list *stack_a, t_list *stack_b, rot_number *rots)
+int calculator_op(t_list *stack_a, t_list *stack_b, rot_number *rots)
 {
-	int		i;
-	int		j;
-	int		*rotate_ops;
-	int		*rev_ops;
-	t_list	*tmp;
-
-	j = 0;
-	i = 0;
-	rotate_ops = malloc(sizeof(int) * ft_lstsize(stack_a) + 1);
-	if (!rotate_ops)
-		exit(EXIT_FAILURE);
-	rev_ops = malloc(sizeof(int) * ft_lstsize(stack_a) + 1);
-	if (!rev_ops)
-		exit(EXIT_FAILURE);
-	tmp = stack_a;
-	while (tmp)
-	{
-		initialize_rotation(rots);
-		cost_of_gettop_a((long)tmp->content, &stack_a, i, rots);
-		cost_moving_position_b((long)tmp->content, &stack_b, i, rots);
-		rotate_ops[i] = rots->order_of_a + rots->order_of_b;
-		rev_ops[i] = rots->order_rev_a + rots->order_rev_b;
-		tmp = tmp->next;
-		i++;
-	}
-	i = short_index_finder(rotate_ops, i - 1);
-	j = short_index_finder(rev_ops, i - 1);
-	free(rotate_ops);
-	rotate_ops = NULL;
-	free(rev_ops);
-	rotate_ops = NULL;
-	if (i < j)
-		rots->best_ind = rotate_ops[i];
-	else
-		rots->best_ind = rev_ops[j];
-	if (i < j)
-		rots->rev_up_or_down = ROTATE;
-	else
-		rots->rev_up_or_down = REV_ROTATE;	
+    int     i;
+    int     j;
+    int     *rotate_ops;
+    t_list  *tmp;
+    int     uu;
+    int     ud;
+    int     du;
+    int     dd;
+    j = 0;
+    i = 0;
+    rotate_ops = malloc(sizeof(int) * ft_lstsize(stack_a) + 1);
+    if (!rotate_ops)
+        exit(EXIT_FAILURE);
+    tmp = stack_a;
+    while (tmp)
+    {
+        initialize_rotation(rots);
+        cost_of_gettop_a((long)tmp->content, &stack_a, i, rots);
+        cost_moving_position_b((long)tmp->content, &stack_b, i, rots);
+        uu = rots->order_of_a + rots->order_of_b;
+        ud = rots->order_of_a + rots->order_rev_b;
+        du = rots->order_rev_a + rots->order_of_b;
+        dd = rots->order_rev_a + rots->order_rev_b;
+        rotate_ops[i] = smallest(uu, ud, du, dd);
+        tmp = tmp->next;
+        i++;
+    }
+    i = short_index_finder(rotate_ops, i - 1);
+    free(rotate_ops);
+    rotate_ops = NULL;
+    return (i);
 }

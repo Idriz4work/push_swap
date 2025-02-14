@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/13 16:56:06 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:29:24 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 	else
 		osman_sort_algorithm(stack_a, stack_b);
 }
-// print_stack(stack_b);
 // print_stack(stack_a);
+// print_stack(stack_b);
 
 int	process_values_two(char **values)
 {

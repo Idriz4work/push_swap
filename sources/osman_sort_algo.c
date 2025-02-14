@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:46:08 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 19:09:45 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:28:35 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,25 @@ void check_for_top_min(t_list **stack_a, t_list **stack_b, rot_number *rots)
 // Main algorithm functions
 void osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b)
 {
-    t_list      *tmp;
     rot_number  rots;
     int         list_size;
     int         i;
-
-    tmp = (*stack_a);
+    
     i = 0;
     list_size = ft_lstsize(*stack_a);
     while (i < list_size)
     {
         initialize_rotation(&rots);
-        rots.best_ind = calculator_op(tmp, *stack_b, &rots);
+        rots.best_ind = calculator_op(*stack_a, *stack_b, &rots);  // Changed tmp to *stack_a
+        cost_of_gettop_a((long)(*stack_a)->content, stack_a, rots.best_ind, &rots);
+        cost_moving_position_b((long)(*stack_a)->content, stack_b, rots.best_ind, &rots);
         handle_rotation_a(&rots, stack_a);
         handle_rotation_b(&rots, stack_b);
         push_b((long)(*stack_a)->content, stack_b, stack_a);
         i++;
     }
 }
+
 
 void osman_sort_algorithm(t_list **stack_a, t_list **stack_b)
 {
