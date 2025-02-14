@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 20:29:24 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:30:13 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,31 +72,37 @@ void	filler(char **values, t_list **stack_a, int i)
 	}
 }
 
-t_list	*fill_stack(char **values)
+t_list	*fill_stack(char **values, t_list **stack_a, t_list **stack_b)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-	int		i;
+	int	i;
 
 	i = 0;
-	if (initialize_stack(&stack_a, &stack_b) == -1)
+	if (initialize_stack(stack_a, stack_b) == -1)
 	{
 		ft_printf("Error\n");
 		return (NULL);
 	}
 	i = process_values_two(values);
-	filler(values, &stack_a, i);
-	process_values(&stack_a, &stack_b);
-	return (stack_a);
+	filler(values, stack_a, i);
+	process_values(stack_a, stack_b);
+	return (*stack_a);
 }
 
 int	main(int argc, char **argv)
 {
+	t_list	*stack_a;
+	t_list	*stack_b;
+
 	if (argc <= 2)
 		return (-1);
 	if (handle_ops(argv) == -1)
 		return (-2);
-	if (fill_stack(argv) == NULL)
+	stack_a = fill_stack(argv, &stack_a, &stack_b);
+	if (stack_a == NULL)
+	{
+		ft_lstclear(&stack_a, free);
+		ft_lstclear(&stack_b, free);
 		return (-3);
+	}
 	return (0);
 }

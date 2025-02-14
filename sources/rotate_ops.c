@@ -6,13 +6,13 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:46 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/13 14:53:20 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:19:53 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-// Operations implementations
+// Rotates stack_a: Moves the first element to the last position.
 void	rotate_a(t_list **stack_a)
 {
 	t_list	*first;
@@ -30,6 +30,7 @@ void	rotate_a(t_list **stack_a)
 	ft_printf("ra\n");
 }
 
+// Rotates stack_b: Moves the first element to the last position.
 void	rotate_b(t_list **stack_b)
 {
 	t_list	*first;
@@ -47,43 +48,10 @@ void	rotate_b(t_list **stack_b)
 	ft_printf("rb\n");
 }
 
+// Rotates both stack_a and stack_b: Moves the first element of each stack to the last position.
 void	rotate_anb(t_list **stack_a, t_list **stack_b)
 {
 	rotate_a(stack_a);
 	rotate_b(stack_b);
 	ft_printf("rr\n");
-}
-
-void	reverse_rotate_a(t_list **stack_a)
-{
-	t_list	*head;
-	t_list	*last;
-
-	last = ft_lstlast(*stack_a);
-	if (*stack_a == NULL || (*stack_a)->next == NULL || !last)
-		return ;
-	head = *stack_a;
-	while (head->next->next != NULL)
-		head = head->next;
-	head->next = NULL;
-	last->next = *stack_a;
-	*stack_a = last;
-	ft_printf("rra\n");
-}
-
-void	reverse_rotate_b(t_list **stack_b)
-{
-	t_list	*head;
-	t_list	*last;
-
-	last = ft_lstlast(*stack_b);
-	if (*stack_b == NULL || (*stack_b)->next == NULL || !last)
-		return ;
-	head = *stack_b;
-	while (head->next->next != NULL)
-		head = head->next;
-	head->next = NULL;
-	last->next = *stack_b;
-	*stack_b = last;
-	ft_printf("rrb\n");
 }

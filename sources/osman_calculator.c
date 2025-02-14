@@ -6,14 +6,33 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:31:54 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 20:29:05 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:51:42 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-// this function returns the actual index of the number
-// which has the shortest operations to do
+// returns the smallest value
+// a = up_down.uu (up up (rotate a rotate b))
+// b = up_down.ud ((up down (rotate a rotate b)))
+// c = up_down.du
+// d = up_down.dd
+static int	smallest(int a, int b, int c, int d)
+{
+	int	cur;
+
+	cur = a;
+	if (b < cur)
+		cur = b;
+	if (c < cur)
+		cur = c;
+	if (d < cur)
+		cur = d;
+	return (cur);
+}
+
+// This function returns the index of the number with the shortest number of rotation operations
+// required to reach its correct position in the stack.
 int	short_index_finder(int *rotate_ops, int length)
 {
 	int	index;
@@ -33,15 +52,11 @@ int	short_index_finder(int *rotate_ops, int length)
 	return (index);
 }
 
-// finds the number that needs to be 1 before the top
-// value which means that the number needs to be
-// rotated to the top and then the top value gets
-// pushed to the top
-// finds the number that should be right before
-// the given top value in descending order
-// Find the number that should be right before the given top value in ascending order
-// If no valid larger number is found, return the smallest number in stack_b
-// Find the smallest number that's still larger than top
+// This function finds the number in stack_b that is just larger than the given 'top' value
+// when traversing the stack in descending order. If no such
+// number is found,it returns the smallest
+// number in stack_b. If no valid larger number is found
+// it returns the smallest value in stack_b.
 int	find_next_largest(int top, t_list **stack_b)
 {
 	long	current;
@@ -69,9 +84,9 @@ int	find_next_largest(int top, t_list **stack_b)
 	return (current);
 }
 
-// this calculates how many rotations or reverse rotataions
-// the current number(num) needs in order to be placed
-// in the right position in stack b First find the position of the target
+// This function calculates how many rotations or reverse rotations are needed to position
+// a number (num) at the correct spot in stack_b. It first determines the target position
+// in stack_b, then calculates the necessary moves.
 void	cost_moving_position_b(int num, t_list **stack_b, int index,
 		rot_number *rots)
 {
@@ -94,8 +109,9 @@ void	cost_moving_position_b(int num, t_list **stack_b, int index,
 	position_decider_b(position, size, rots);
 }
 
-// finds postion for the current number and then calls decider which will tell if
-// rotate or reverse rotate needs to be done
+// This function calculates the position of a given number (current) in stack_a and calls
+// position_decider_a to determine whether a rotation or reverse rotation is needed to bring
+// the number to the top of stack_a.
 void	cost_of_gettop_a(int current, t_list **stack_a, int index,
 		rot_number *rots)
 {
@@ -116,52 +132,34 @@ void	cost_of_gettop_a(int current, t_list **stack_a, int index,
 	position_decider_a(position, size, rots);
 }
 
-static  int smallest(int a, int b, int c, int d)
+// This function calculates the necessary moves to position each element in stack_a at
+// the correct position in stack_b. It tracks the number of operations required for each
+// number and returns the index of the number with the shortest number of operations.
+int	calculator_op(t_list *stack_a, t_list *stack_b, rot_number *rots)
 {
-    int cur;
-    cur = a;
-    if (b < cur)
-        cur = b;
-    if (c < cur)
-        cur = c;
-    if (d < cur)
-        cur = d;
-    return (cur);
-}
-// goes through all elements in stack a and calculates the moves to put the current value
-// into the right position in stack b,
-// the index of shortest number of ops gets returned
-int calculator_op(t_list *stack_a, t_list *stack_b, rot_number *rots)
-{
-    int     i;
-    int     j;
-    int     *rotate_ops;
-    t_list  *tmp;
-    int     uu;
-    int     ud;
-    int     du;
-    int     dd;
-    j = 0;
-    i = 0;
-    rotate_ops = malloc(sizeof(int) * ft_lstsize(stack_a) + 1);
-    if (!rotate_ops)
-        exit(EXIT_FAILURE);
-    tmp = stack_a;
-    while (tmp)
-    {
-        initialize_rotation(rots);
-        cost_of_gettop_a((long)tmp->content, &stack_a, i, rots);
-        cost_moving_position_b((long)tmp->content, &stack_b, i, rots);
-        uu = rots->order_of_a + rots->order_of_b;
-        ud = rots->order_of_a + rots->order_rev_b;
-        du = rots->order_rev_a + rots->order_of_b;
-        dd = rots->order_rev_a + rots->order_rev_b;
-        rotate_ops[i] = smallest(uu, ud, du, dd);
-        tmp = tmp->next;
-        i++;
-    }
-    i = short_index_finder(rotate_ops, i - 1);
-    free(rotate_ops);
-    rotate_ops = NULL;
-    return (i);
+	int			i;
+	int			*rotate_ops;
+	t_list		*tmp;
+	t_updown	up_down;
+
+	i = 0;
+	rotate_ops = malloc(sizeof(int) * ft_lstsize(stack_a) + 1);
+	if (!rotate_ops)
+		exit(EXIT_FAILURE);
+	tmp = stack_a;
+	while (tmp)
+	{
+		initialize_rotation(rots);
+		cost_of_gettop_a((long)tmp->content, &stack_a, i, rots);
+		cost_moving_position_b((long)tmp->content, &stack_b, i, rots);
+		update_up_down(&up_down, rots);
+		rotate_ops[i] = smallest(up_down.uu, up_down.ud, up_down.du,
+				up_down.dd);
+		tmp = tmp->next;
+		i++;
+	}
+	i = short_index_finder(rotate_ops, i - 1);
+	free(rotate_ops);
+	rotate_ops = NULL;
+	return (i);
 }

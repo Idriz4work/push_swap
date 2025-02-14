@@ -6,12 +6,15 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 21:55:49 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/13 16:46:24 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:14:00 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
+// Checks if the stack is sorted in ascending order.
+// Returns the index where the sorted order breaks,
+// or exits with error if not sorted.
 int	check_sorted(t_list *stack)
 {
 	int		index;
@@ -32,6 +35,7 @@ int	check_sorted(t_list *stack)
 	exit(1);
 }
 
+// Converts a string to a long integer while handling signs (+ or -).
 long	ft_atol(char *s)
 {
 	long	i;
@@ -57,6 +61,7 @@ long	ft_atol(char *s)
 	return (is_op * endresult);
 }
 
+// Initializes both stacks to NULL.
 int	initialize_stack(t_list **stack_a, t_list **stack_b)
 {
 	*stack_a = NULL;
@@ -64,7 +69,7 @@ int	initialize_stack(t_list **stack_a, t_list **stack_b)
 	return (0);
 }
 
-// Helper function to check if a string is a valid number
+// Helper function that checks if a given string is a valid number.
 static int	is_valid_number(char *str)
 {
 	int	i;
@@ -81,10 +86,11 @@ static int	is_valid_number(char *str)
 	return (1);
 }
 
+// Handles the operations: checks for duplicates and validates the numbers in the argument array.
 int	handle_ops(char **argv)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (argv[i] != NULL)

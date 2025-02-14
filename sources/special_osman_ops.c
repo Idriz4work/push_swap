@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:45:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 20:18:12 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/14 21:26:03 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 // this is the function which decides if we rotate forword or backwards for stack a
 void	position_decider_a(int position, int stack_size, rot_number *rots)
 {
-	// Calculate ops based on position relative to half size
 	rots->order_of_a = position;
-	// rots->rot_or_rev = ROTATE;
 	rots->order_rev_a = stack_size - position;
 
 }
@@ -62,6 +60,7 @@ void    handle_rotation_a(rot_number *rots, t_list **stack_a)
         }
     }
 }
+
 // Handle rotations for stack B either rotate forward or reverse rotate backward
 void    handle_rotation_b(rot_number *rots, t_list **stack_b)
 {
