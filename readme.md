@@ -36,20 +36,6 @@ The project implements the Osman sort algorithm, an efficient approach that achi
    - Push elements back to stack A in correct order
    - Perform final rotations to position smallest number at top
 
-graph TD
-    A[Start] --> B[Push 2 elements to Stack B]
-    B --> C[Calculate costs for each number in Stack A]
-    C --> D[Find number with minimum operations]
-    D --> E[Calculate most efficient rotation for Stack B]
-    E --> F[Execute rotation/reverse rotation on Stack B]
-    F --> G[Push number to Stack B]
-    G --> H{Stack A has elements ?}
-    H -->|Yes| C
-    H -->|No| I[Sort elements from descending order last time]
-    I --> J[Push sorted numbers back to Stack A]
-    J --> K[Final rotation if needed]
-    K --> L[End]
-
 ## Visualizer
 The project includes a visualizer tool to help understand the sorting process:
 - Real-time visualization of stack operations
