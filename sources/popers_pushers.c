@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:32:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/12 14:37:25 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:53:29 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pop(t_list **stack)
 	temp = NULL;
 }
 
-void	push_a(long value, t_list **stack_a,t_list **stack_b, int *op_count)
+void	push_a(long value, t_list **stack_a, t_list **stack_b)
 {
 	t_list	*newnode;
 
@@ -34,12 +34,11 @@ void	push_a(long value, t_list **stack_a,t_list **stack_b, int *op_count)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_a;
 	*stack_a = newnode;
-	(*op_count)++;
 	pop(stack_b);
 	ft_printf("pa\n");
 }
 
-void	push_b(long value, t_list **stack_b,t_list **stack_a, int *op_count)
+void	push_b(long value, t_list **stack_b, t_list **stack_a)
 {
 	t_list	*newnode;
 
@@ -49,7 +48,6 @@ void	push_b(long value, t_list **stack_b,t_list **stack_a, int *op_count)
 	newnode->content = (void *)(long)value;
 	newnode->next = *stack_b;
 	*stack_b = newnode;
-	(*op_count)++;
 	pop(stack_a);
 	ft_printf("pb\n");
 }

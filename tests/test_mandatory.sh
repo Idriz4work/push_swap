@@ -49,6 +49,10 @@ run_test() {
     printf "${BLUE}-------------------------------------------------------------------------${DEF_COLOR}\n"
 }
 
+# valgrind --leak-check=full ./push_swap 214748 "-3647"
+# valgrind --leak-check=full ./push_swap 214748 "-3647" t"09" -
+# valgrind --leak-check=full ./push_swap 214748 -"-3647"
+
 # Sorted cases
 run_test "1 2 3 4 5" OK
 run_test "1 2 3 4 5 6" OK

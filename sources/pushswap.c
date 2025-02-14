@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/12 20:34:09 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:56:06 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,27 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 {
 	int		value;
 	t_case	n;
-	int		op_count;
 
 	n.first = 0;
 	n.last = 0;
 	n.second = 0;
 	value = ft_lstsize(*stack_a);
-	op_count = 0;
 	if (value == 2)
 	{
 		n.first = (long)((*stack_a)->content);
 		n.second = (long)((*stack_a)->next->content);
 		if (n.first > n.second)
-			swap_a(stack_a, &op_count);
+			swap_a(stack_a);
 	}
 	else if (value == 3)
-		handle_edge_three(stack_a, stack_b, &n, &op_count);
+		handle_edge_three(stack_a, stack_b, &n);
 	else if (value == 4)
-		handle_edge_four(stack_a, stack_b, &n, &op_count);
+		handle_edge_four(stack_a, stack_b, &n);
 	else
-		osman_sort_algorithm(stack_a, stack_b, &op_count);
-	// print_stack(stack_a);
-	// print_stack(stack_b);
-	// osmani_iki(stack_a,stack_b,&op_count);
-	// ft_printf("-----------------\nOP COUNT: %i\n----------------", op_count);
+		osman_sort_algorithm(stack_a, stack_b);
 }
+// print_stack(stack_b);
+// print_stack(stack_a);
 
 int	process_values_two(char **values)
 {
@@ -104,27 +100,3 @@ int	main(int argc, char **argv)
 		return (-3);
 	return (0);
 }
-//     t_list      *stack_a;
-// t_list      *stack_b;
-// t_analyzer  analyzer;
-
-// if (argc < 2)
-//     return (0);
-
-// stack_a = NULL;
-// stack_b = NULL;
-
-// Initialize stack_a with your numbers
-// ... your existing initialization code ...
-
-// // Initialize analyzer with stack size
-// init_analyzer(&analyzer, argc - 1);  //  argc - 1 is your stack size
-
-// // Your sorting algorithm
-// sort_stacks(&stack_a, &stack_b, &analyzer);
-
-// // Print analysis at the end
-// analyze_push_swap(&analyzer);
-
-// Free your stacks
-// ... your existing cleanup code ...
