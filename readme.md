@@ -26,9 +26,9 @@ graph TD
     C --> D[Find number with minimum operations]
     D --> E[Execute rotations]
     E --> F[Push to Stack B]
-    F --> G{Stack A has elements inside ?}
+    F --> G{Stack a empty ?}
     G -->|Yes| C
-    G -->|No| H[ final sort which makes sure veryhting is sorted in descending order]
+    G -->|No| H[ final sort everything is sorted in descending order]
     H --> I[Push back to Stack A]
     I --> J[End]
 ```
