@@ -6,12 +6,12 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:43 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 22:50:49 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:11:04 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSHSWAP_H
+# define PUSHSWAP_H
 
 # include "../includes/Libft/get_next_line/get_next_line.h"
 # include "../includes/Libft/libft.h"
@@ -36,7 +36,7 @@ typedef struct s_order
 	int		order_rev_b;
 	int		best_ind;
 	int		rev_up_or_down;
-}			rot_number;
+}			t_rot;
 
 typedef struct t_casehandler
 {
@@ -59,17 +59,16 @@ typedef struct t_up_or_down
 // ----------------------------
 void		osman_sort_algorithm(t_list **stack_a, t_list **stack_b);
 void		osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b);
-void		handle_rotation_a(rot_number *rots, t_list **stack_a);
-void		handle_rotation_b(rot_number *rots, t_list **stack_b);
-void		check_for_top_min(t_list **stack_a, t_list **stack_b,
-				rot_number *rots);
-void		handle_rotation_a(rot_number *rots, t_list **stack_a);
-void		handle_rotation_b(rot_number *rots, t_list **stack_b);
-void		position_decider_a(int position, int stack_size, rot_number *rots);
-void		position_decider_b(int position, int stack_size, rot_number *rots);
-void		initialize_rotation(rot_number *rots);
-int			calculator_op(t_list *stack_a, t_list *stack_b, rot_number *rots);
-void		update_up_down(t_updown *up_down, rot_number *rots);
+void		handle_rotation_a(t_rot *rots, t_list **stack_a);
+void		handle_rotation_b(t_rot *rots, t_list **stack_b);
+void		check_for_top_min(t_list **stack_a, t_list **stack_b, t_rot *rots);
+void		handle_rotation_a(t_rot *rots, t_list **stack_a);
+void		handle_rotation_b(t_rot *rots, t_list **stack_b);
+void		position_decider_a(int position, int stack_size, t_rot *rots);
+void		position_decider_b(int position, int stack_size, t_rot *rots);
+void		initialize_rotation(t_rot *rots);
+int			calculator_op(t_list *stack_a, t_list *stack_b, t_rot *rots);
+void		update_up_down(t_updown *up_down, t_rot *rots);
 
 // ----------------------------
 // Functions for Calculator
@@ -80,9 +79,9 @@ int			short_index_finder(int *number_ops, int length);
 int			find_next_largest(int top, t_list **stack_b);
 int			find_largest_position(t_list **stack_b);
 void		cost_of_gettop_a(int current, t_list **stack_a, int index,
-				rot_number *rots);
+				t_rot *rots);
 void		cost_moving_position_b(int num, t_list **stack_b, int index,
-				rot_number *rots);
+				t_rot *rots);
 
 // ----------------------------
 // Hardcoded Functions for 3 and 4 Stack Size
@@ -92,6 +91,8 @@ void		handle_edge_three_two(t_list **stack_a, t_list **stack_b,
 void		handle_edge_three(t_list **stack_a, t_list **stack_b, t_case *n);
 void		handle_edge_four_two(t_list **stack_a, t_list **stack_b, t_case *n);
 void		handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_five_two(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_five(t_list **stack_a, t_list **stack_b, t_case *n);
 
 // ----------------------------
 // Operations Functions
@@ -114,7 +115,7 @@ void		reverse_rotate_rrr(t_list **stak_a, t_list **stak_b);
 // ----------------------------
 int			check_sorted(t_list *stack_a);
 int			initialize_stack(t_list **stack_a, t_list **stack_b);
-static int	is_valid_number(char *str);
+int			is_valid_number(char *str);
 int			handle_ops(char **argv);
 long		ft_atol(char *s);
 void		print_stack(t_list **stak);
@@ -125,6 +126,5 @@ void		print_stack(t_list **stak);
 void		forwords_sorter(t_list **stack_b, int num_rotates);
 void		backwards_sorter(t_list **stack_b, int num_reverse_op);
 int			find_largest_position(t_list **stack_b);
-
 
 #endif

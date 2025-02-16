@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 22:30:13 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:53:16 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 	n.last = 0;
 	n.second = 0;
 	value = ft_lstsize(*stack_a);
+	if (check_sorted(*stack_a) == 1)
+		exit(EXIT_SUCCESS);
 	if (value == 2)
 	{
 		n.first = (long)((*stack_a)->content);
@@ -32,10 +34,12 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 		handle_edge_three(stack_a, stack_b, &n);
 	else if (value == 4)
 		handle_edge_four(stack_a, stack_b, &n);
+	else if (value == 5)
+		handle_edge_five(stack_a, stack_b, &n);
 	else
 		osman_sort_algorithm(stack_a, stack_b);
+	print_stack(stack_a);
 }
-// print_stack(stack_a);
 // print_stack(stack_b);
 
 int	process_values_two(char **values)

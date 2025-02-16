@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 22:15:34 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 22:19:56 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:24:36 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	push_b(long value, t_list **stack_b, t_list **stack_a)
 // Prints all elements in the stack, followed by a newline.
 void	print_stack(t_list **stack)
 {
-	t_list *current;
+	t_list	*current;
 
 	current = *stack;
 	while (current != NULL)

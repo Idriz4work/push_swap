@@ -6,33 +6,35 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:46:08 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 22:50:29 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/15 23:13:07 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
 // In osman_calculator.c
-static int smallest(int a, int b, int c, int d)
+static int	smallest(int a, int b, int c, int d)
 {
-    int min = a;
+	int	min;
 
-    if (b < min)
-        min = b;
-    if (c < min)
-        min = c;
-    if (d < min)
-        min = d;
-
-    return min;
+	min = a;
+	if (b < min)
+		min = b;
+	if (c < min)
+		min = c;
+	if (d < min)
+		min = d;
+	return (min);
 }
 
-
-// This function checks if the smallest number in stack_b is located at the top of the stack.
+// This function checks if the smallest
+// number in stack_b is located at the top of the stack.
 // If it's not,
-// it performs the necessary rotations (either forwards or backwards) to bring it
-// to the top, and then pushes all elements from stack_b back onto stack_a.
-void	check_for_top_min(t_list **stack_a, t_list **stack_b, rot_number *rots)
+// it performs the necessary rotations
+// (either forwards or backwards) to bring it
+// to the top, and then pushes all
+// elements from stack_b back onto stack_a.
+void	check_for_top_min(t_list **stack_a, t_list **stack_b, t_rot *rots)
 {
 	int	position;
 	int	stack_size;
@@ -47,8 +49,10 @@ void	check_for_top_min(t_list **stack_a, t_list **stack_b, rot_number *rots)
 		push_a((long)(*stack_b)->content, stack_a, stack_b);
 }
 
-// This function retrieves the content of the element at the specified index in stack_a.
-// It iterates through the list until it reaches the correct position and then returns the value.
+// This function retrieves the content of
+//  the element at the specified index in stack_a.
+// It iterates through the list until it
+// reaches the correct position and then returns the value.
 int	get_right_index(int index, t_list *stack_a)
 {
 	int		j;
@@ -64,18 +68,20 @@ int	get_right_index(int index, t_list *stack_a)
 	return ((long)tmp->content);
 }
 
-// This function implements the core sorting algorithm for the "Osman Sort" strategy.
-// It calculates the number of rotations required for each element in stack_a to place it in the
+// This function implements the core sorting algorithm
+// for the "Osman Sort" strategy.
+// It calculates the number of rotations
+// required for each element in stack_a to place it in the
 // correct position in stack_b,
 // and then applies the necessary rotations to both stacks.
 // After placing each element in stack_b,
 // it moves to the next one until stack_a is empty.
 void	osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b)
 {
-	rot_number	rots;
-	int			list_size;
-	int			i;
-	long		target_content;
+	t_rot	rots;
+	int		list_size;
+	int		i;
+	long	target_content;
 
 	i = 0;
 	list_size = ft_lstsize(*stack_a);
@@ -93,15 +99,15 @@ void	osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-// This function performs the Osman sorting algorithm. It first moves two elements from stack_a
-// to stack_b,
-// then calls the second phase of the algorithm to sort the remaining elements.
-// After sorting,
-// it ensures the smallest element is at the top of stack_b before pushing all
-// elements back to stack_a.
+// This function performs the Osman sorting algorithm.
+// It first moves two elements from stack_a to stack_b,
+// then calls the second phase of the algorithm
+// to sort the remaining elements.
+// After sorting, it ensures the smallest element is at
+// the top of stack_b before pushing all elements back to stack_a.
 void	osman_sort_algorithm(t_list **stack_a, t_list **stack_b)
 {
-	rot_number	rots;
+	t_rot	rots;
 
 	push_b((long)(*stack_a)->content, stack_b, stack_a);
 	push_b((long)(*stack_a)->content, stack_b, stack_a);

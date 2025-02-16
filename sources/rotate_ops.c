@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:46 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/14 22:19:53 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:25:22 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	rotate_b(t_list **stack_b)
 	ft_printf("rb\n");
 }
 
-// Rotates both stack_a and stack_b: Moves the first element of each stack to the last position.
+// Rotates both stack_a and stack_b: Moves the 
+// first element of each stack to the last position.
 void	rotate_anb(t_list **stack_a, t_list **stack_b)
 {
 	rotate_a(stack_a);
