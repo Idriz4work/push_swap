@@ -124,6 +124,9 @@ make
 ./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
 ```
 
+## Visualizer
+[![Visualizer Video](https://img.youtube.com/vi/your_video_id/0.jpg)](https://www.youtube.com/watch?v=your_video_id)
+
 ## Project Requirements
 - Conforms to 42 Norm
 - Uses only allowed libc functions: write, read, malloc, free, exit
