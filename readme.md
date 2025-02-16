@@ -27,8 +27,8 @@ graph TD
     D --> E[Execute rotations]
     E --> F[Push to Stack B]
     F --> G{Stack a empty ?}
-    G -->|Yes| C
-    G -->|No| H[ final sort everything is sorted in descending order]
+    G -->|No| C
+    G -->|Yes| H[ final sort everything is sorted in descending order]
     H --> I[Push back to Stack A]
     I --> J[End]
 ```
