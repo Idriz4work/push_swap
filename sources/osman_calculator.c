@@ -17,7 +17,7 @@
 // b = up_down.ud ((up down (rotate a rotate b)))
 // c = up_down.du
 // d = up_down.dd
-static int	smallest(int a, int b, int c, int d)
+int	smallest(int a, int b, int c, int d)
 {
 	int	cur;
 
@@ -59,8 +59,7 @@ int	short_index_finder(int *rotate_ops, int length)
 // a number (num) at the correct spot in stack_b.
 //  It first determines the target position
 // in stack_b, then calculates the necessary moves.
-void	cost_moving_position_b(int num, t_list **stack_b, int index,
-		t_rot *rots)
+void	cost_moving_position_b(int num, t_list **stack_b, t_rot *rots)
 {
 	t_list	*tmp;
 	int		target;
@@ -86,7 +85,7 @@ void	cost_moving_position_b(int num, t_list **stack_b, int index,
 // position_decider_a to determine whether a rotation
 // or reverse rotation is needed to bring
 // the number to the top of stack_a.
-void	cost_of_gettop_a(int current, t_list **stack_a, int index, t_rot *rots)
+void	cost_of_gettop_a(int current, t_list **stack_a, t_rot *rots)
 {
 	t_list	*tmp;
 	int		position;
@@ -126,8 +125,8 @@ int	calculator_op(t_list *stack_a, t_list *stack_b, t_rot *rots)
 	while (tmp)
 	{
 		initialize_rotation(rots);
-		cost_of_gettop_a((long)tmp->content, &stack_a, i, rots);
-		cost_moving_position_b((long)tmp->content, &stack_b, i, rots);
+		cost_of_gettop_a((long)tmp->content, &stack_a, rots);
+		cost_moving_position_b((long)tmp->content, &stack_b, rots);
 		update_up_down(&up_down, rots);
 		rotate_ops[i] = smallest(up_down.uu, up_down.ud, up_down.du,
 				up_down.dd);

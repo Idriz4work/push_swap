@@ -12,101 +12,117 @@
 
 #include "pushswap.h"
 
-void	process_values(t_list **stack_a, t_list **stack_b)
+void cleanup_and_exit(t_list **stack_a, t_list **stack_b, int status)
 {
-	int		value;
-	t_case	n;
-
-	n.first = 0;
-	n.last = 0;
-	n.second = 0;
-	value = ft_lstsize(*stack_a);
-	if (check_sorted(*stack_a) == 1)
-		exit(EXIT_SUCCESS);
-	if (value == 2)
-	{
-		n.first = (long)((*stack_a)->content);
-		n.second = (long)((*stack_a)->next->content);
-		if (n.first > n.second)
-			swap_a(stack_a);
-	}
-	else if (value == 3)
-		handle_edge_three(stack_a, stack_b, &n);
-	else if (value == 4)
-		handle_edge_four(stack_a, stack_b, &n);
-	else if (value == 5)
-		handle_edge_five(stack_a, stack_b, &n);
-	else
-		osman_sort_algorithm(stack_a, stack_b);
-	print_stack(stack_a);
-}
-// print_stack(stack_b);
-
-int	process_values_two(char **values)
-{
-	int	i;
-
-	i = 1;
-	while (values[i] != NULL)
-	{
-		if (ft_atol(values[i]) > 2147483647 || ft_atol(values[i]) < -2147483648)
-		{
-			ft_printf("Error\n");
-			exit(EXIT_FAILURE);
-			return (-1);
-		}
-		i++;
-	}
-	i--;
-	return (i);
+    if (stack_a && *stack_a)
+        ft_lstclear(stack_a, free);
+    if (stack_b && *stack_b)
+        ft_lstclear(stack_b, free);
+    exit(status);
 }
 
-void	filler(char **values, t_list **stack_a, int i)
+void process_values(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*newnode;
+    int value;
+    t_case n;
 
-	while (i >= 1)
-	{
-		newnode = (t_list *)malloc(sizeof(t_list));
-		if (!newnode)
-			exit(EXIT_FAILURE);
-		newnode->content = (void *)(long)ft_atoi(values[i--]);
-		newnode->next = (*stack_a);
-		(*stack_a) = newnode;
-	}
+    n.first = 0;
+    n.last = 0;
+    n.second = 0;
+    value = ft_lstsize(*stack_a);
+    if (check_sorted(*stack_a) == 1)
+        cleanup_and_exit(stack_a, stack_b, EXIT_SUCCESS);
+    if (value == 2)
+    {
+        n.first = (long)((*stack_a)->content);
+        n.second = (long)((*stack_a)->next->content);
+        if (n.first > n.second)
+            swap_a(stack_a);
+    }
+    else if (value == 3)
+        handle_edge_three(stack_a, &n);
+    else if (value == 4)
+        handle_edge_four(stack_a, stack_b, &n);
+    else if (value == 5)
+        handle_edge_five(stack_a, stack_b, &n);
+    else
+        osman_sort_algorithm(stack_a, stack_b);
 }
 
-t_list	*fill_stack(char **values, t_list **stack_a, t_list **stack_b)
+int process_values_two(char **values)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	if (initialize_stack(stack_a, stack_b) == -1)
-	{
-		ft_printf("Error\n");
-		return (NULL);
-	}
-	i = process_values_two(values);
-	filler(values, stack_a, i);
-	process_values(stack_a, stack_b);
-	return (*stack_a);
+    i = 1;
+    while (values[i] != NULL)
+    {
+        if (ft_atol(values[i]) > 2147483647 || ft_atol(values[i]) < -2147483648)
+        {
+            ft_printf("Error\n");
+            return (-1);
+        }
+        i++;
+    }
+    return (i - 1);
 }
 
-int	main(int argc, char **argv)
+void filler(char **values, t_list **stack_a, int i)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
+    t_list *newnode;
 
-	if (argc <= 2)
-		return (-1);
-	if (handle_ops(argv) == -1)
-		return (-2);
-	stack_a = fill_stack(argv, &stack_a, &stack_b);
-	if (stack_a == NULL)
-	{
-		ft_lstclear(&stack_a, free);
-		ft_lstclear(&stack_b, free);
-		return (-3);
-	}
-	return (0);
+    while (i >= 1)
+    {
+        newnode = (t_list *)malloc(sizeof(t_list));
+        if (!newnode)
+        {
+            ft_lstclear(stack_a, free);
+            exit(EXIT_FAILURE);
+        }
+        newnode->content = (void *)(long)ft_atoi(values[i--]);
+        newnode->next = (*stack_a);
+        (*stack_a) = newnode;
+    }
+}
+
+t_list *fill_stack(char **values, t_list **stack_a, t_list **stack_b)
+{
+    int i;
+
+    i = 0;
+    if (initialize_stack(stack_a, stack_b) == -1)
+    {
+        ft_printf("Error\n");
+        return (NULL);
+    }
+    i = process_values_two(values);
+    if (i == -1)
+    {
+        ft_lstclear(stack_a, free);
+        ft_lstclear(stack_b, free);
+        exit(EXIT_FAILURE);
+    }
+    filler(values, stack_a, i);
+    process_values(stack_a, stack_b);
+    return (*stack_a);
+}
+
+int main(int argc, char **argv)
+{
+    t_list *stack_a;
+    t_list *stack_b;
+
+    stack_a = NULL;
+    stack_b = NULL;
+    if (argc <= 2)
+        return (-1);
+    if (handle_ops(argv) == -1)
+        return (-2);
+    stack_a = fill_stack(argv, &stack_a, &stack_b);
+    if (stack_a == NULL)
+        return (-3);
+    
+    // Clean up before exit
+    ft_lstclear(&stack_a, free);
+    ft_lstclear(&stack_b, free);
+    return (0);
 }

@@ -40,9 +40,6 @@ void	initialize_rotation(t_rot *rots)
 
 void	handle_rotation_a(t_rot *rots, t_list **stack_a)
 {
-	int	i;
-
-	i = 0;
 	if (rots->order_of_a < rots->order_rev_a)
 	{
 		while (rots->order_of_a > 0)

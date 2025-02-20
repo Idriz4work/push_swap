@@ -1,10 +1,10 @@
 NAME = push_swap
-CC = gcc
-CFLAGS = -g -fPIE #-Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 # Source files
-SRCS = sources/calculator_utils.c sources/osman_sort_utils.c sources/special_osman_ops.c sources/osman_calculator.c sources/osman_sort_algo.c \
+SRCS = sources/process_stack.c sources/calculator_utils.c sources/osman_sort_utils.c sources/special_osman_ops.c sources/osman_calculator.c sources/osman_sort_algo.c \
        sources/input_validator.c sources/egde_case_handlers.c sources/pushswap.c sources/swapy_ops.c \
        sources/rotate_ops.c sources/push_ops.c sources/rev_rotate_ops.c
 

@@ -12,21 +12,6 @@
 
 #include "pushswap.h"
 
-// In osman_calculator.c
-static int	smallest(int a, int b, int c, int d)
-{
-	int	min;
-
-	min = a;
-	if (b < min)
-		min = b;
-	if (c < min)
-		min = c;
-	if (d < min)
-		min = d;
-	return (min);
-}
-
 // This function checks if the smallest
 // number in stack_b is located at the top of the stack.
 // If it's not,
@@ -34,7 +19,7 @@ static int	smallest(int a, int b, int c, int d)
 // (either forwards or backwards) to bring it
 // to the top, and then pushes all
 // elements from stack_b back onto stack_a.
-void	check_for_top_min(t_list **stack_a, t_list **stack_b, t_rot *rots)
+void	check_for_top_min(t_list **stack_a, t_list **stack_b)
 {
 	int	position;
 	int	stack_size;
@@ -90,8 +75,8 @@ void	osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b)
 		initialize_rotation(&rots);
 		rots.best_ind = calculator_op(*stack_a, *stack_b, &rots);
 		target_content = get_right_index(rots.best_ind, *stack_a);
-		cost_of_gettop_a(target_content, stack_a, rots.best_ind, &rots);
-		cost_moving_position_b(target_content, stack_b, rots.best_ind, &rots);
+		cost_of_gettop_a(target_content, stack_a, &rots);
+		cost_moving_position_b(target_content, stack_b, &rots);
 		handle_rotation_a(&rots, stack_a);
 		handle_rotation_b(&rots, stack_b);
 		push_b((long)(*stack_a)->content, stack_b, stack_a);
@@ -107,10 +92,8 @@ void	osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b)
 // the top of stack_b before pushing all elements back to stack_a.
 void	osman_sort_algorithm(t_list **stack_a, t_list **stack_b)
 {
-	t_rot	rots;
-
 	push_b((long)(*stack_a)->content, stack_b, stack_a);
 	push_b((long)(*stack_a)->content, stack_b, stack_a);
 	osman_sort_algorithm_two(stack_a, stack_b);
-	check_for_top_min(stack_a, stack_b, &rots);
+	check_for_top_min(stack_a, stack_b);
 }

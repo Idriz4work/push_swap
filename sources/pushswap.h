@@ -61,7 +61,7 @@ void		osman_sort_algorithm(t_list **stack_a, t_list **stack_b);
 void		osman_sort_algorithm_two(t_list **stack_a, t_list **stack_b);
 void		handle_rotation_a(t_rot *rots, t_list **stack_a);
 void		handle_rotation_b(t_rot *rots, t_list **stack_b);
-void		check_for_top_min(t_list **stack_a, t_list **stack_b, t_rot *rots);
+void		check_for_top_min(t_list **stack_a, t_list **stack_b);
 void		handle_rotation_a(t_rot *rots, t_list **stack_a);
 void		handle_rotation_b(t_rot *rots, t_list **stack_b);
 void		position_decider_a(int position, int stack_size, t_rot *rots);
@@ -74,25 +74,27 @@ void		update_up_down(t_updown *up_down, t_rot *rots);
 // Functions for Calculator
 // ----------------------------
 int			get_right_index(int index, t_list *stack_a);
-static int	smallest(int a, int b, int c, int d);
+int	smallest(int a, int b, int c, int d);
 int			short_index_finder(int *number_ops, int length);
 int			find_next_largest(int top, t_list **stack_b);
 int			find_largest_position(t_list **stack_b);
-void		cost_of_gettop_a(int current, t_list **stack_a, int index,
+void		cost_of_gettop_a(int current, t_list **stack_a, 
 				t_rot *rots);
-void		cost_moving_position_b(int num, t_list **stack_b, int index,
+void		cost_moving_position_b(int num, t_list **stack_b, 
 				t_rot *rots);
 
 // ----------------------------
 // Hardcoded Functions for 3 and 4 Stack Size
 // ----------------------------
-void		handle_edge_three_two(t_list **stack_a, t_list **stack_b,
-				t_case *n);
-void		handle_edge_three(t_list **stack_a, t_list **stack_b, t_case *n);
-void		handle_edge_four_two(t_list **stack_a, t_list **stack_b, t_case *n);
-void		handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
-void		handle_edge_five_two(t_list **stack_a, t_list **stack_b, t_case *n);
-void		handle_edge_five(t_list **stack_a, t_list **stack_b, t_case *n);
+// Main function declarations for handling different stack sizes
+void    handle_edge_three(t_list **stack_a, t_case *n);
+void    handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
+void    handle_edge_five(t_list **stack_a, t_list **stack_b, t_case *n);
+
+// Helper function declarations
+void    handle_edge_three_two(t_list **stack_a, t_case *n);
+void    handle_edge_four_two(t_list **stack_a, t_case *n);
+int     find_min_position(t_list **stack);
 
 // ----------------------------
 // Operations Functions
@@ -126,5 +128,13 @@ void		print_stack(t_list **stak);
 void		forwords_sorter(t_list **stack_b, int num_rotates);
 void		backwards_sorter(t_list **stack_b, int num_reverse_op);
 int			find_largest_position(t_list **stack_b);
+void cleanup_and_exit(t_list **stack_a, t_list **stack_b, int status);
+void process_values(t_list **stack_a, t_list **stack_b);
+int process_values_two(char **values);
+
+void filler(char **values, t_list **stack_a, int i);
+t_list *fill_stack(char **values, t_list **stack_a, t_list **stack_b);
+
+
 
 #endif

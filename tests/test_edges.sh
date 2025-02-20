@@ -20,7 +20,7 @@ printf "${BLUE}\n---------------------------------------------------------------
 
 # Function to run tests with color-coded output
 run_test() {
-    ARG="$1"
+	ARG="$1"
     EXPECTED="$2"  # Expected outcome (OK, KO, or ERROR)
 
 	# Store push_swap output in a variable
@@ -78,6 +78,7 @@ run_onetwp(){
 	run_test "2147483647 -2147483648" OK
 	run_test "-2147483648 2147483647" OK
 }
+# run_onetwp
 
 run_three(){
 
@@ -184,6 +185,7 @@ run_three(){
 	run_test "1 2.0 3" ERROR
 	run_test "1 2 2.0" ERROR
 }
+# run_three
 
 run_four(){
 	# Basic 4 number combinations (all permutations)
@@ -275,126 +277,129 @@ run_four(){
 	run_test "9223372036854775808 1 2 3" ERROR
 
 }
-
+# run_four
 
 # test for five numbers
-run_test "1 2 3 4 5" OK
-run_test "1 2 3 5 4" OK
-run_test "1 2 4 3 5" OK
-run_test "1 2 4 5 3" OK
-run_test "1 2 5 3 4" OK
-run_test "1 2 5 4 3" OK
-run_test "1 3 2 4 5" OK
-run_test "1 3 2 5 4" OK
-run_test "1 3 4 2 5" OK
-run_test "1 3 4 5 2" OK
-run_test "1 3 5 2 4" OK
-run_test "1 3 5 4 2" OK
-run_test "1 4 2 3 5" OK
-run_test "1 4 2 5 3" OK
-run_test "1 4 3 2 5" OK
-run_test "1 4 3 5 2" OK
-run_test "1 4 5 2 3" OK
-run_test "1 4 5 3 2" OK
-run_test "1 5 2 3 4" OK
-run_test "1 5 2 4 3" OK
-run_test "1 5 3 2 4" OK
-run_test "1 5 3 4 2" OK
-run_test "1 5 4 2 3" OK
-run_test "1 5 4 3 2" OK
-run_test "2 1 3 4 5" OK
-run_test "2 1 3 5 4" OK
-run_test "2 1 4 3 5" OK
-run_test "2 1 4 5 3" OK
-run_test "2 1 5 3 4" OK
-run_test "2 1 5 4 3" OK
-run_test "2 3 1 4 5" OK
-run_test "2 3 1 5 4" OK
-run_test "2 3 4 1 5" OK
-run_test "2 3 4 5 1" OK
-run_test "2 3 5 1 4" OK
-run_test "2 3 5 4 1" OK
-run_test "2 4 1 3 5" OK
-run_test "2 4 1 5 3" OK
-run_test "2 4 3 1 5" OK
-run_test "2 4 3 5 1" OK
-run_test "2 4 5 1 3" OK
-run_test "2 4 5 3 1" OK
-run_test "2 5 1 3 4" OK
-run_test "2 5 1 4 3" OK
-run_test "2 5 3 1 4" OK
-run_test "2 5 3 4 1" OK
-run_test "2 5 4 1 3" OK
-run_test "2 5 4 3 1" OK
-run_test "3 1 2 4 5" OK
-run_test "3 1 2 5 4" OK
-run_test "3 1 4 2 5" OK
-run_test "3 1 4 5 2" OK
-run_test "3 1 5 2 4" OK
-run_test "3 1 5 4 2" OK
-run_test "3 2 1 4 5" OK
-run_test "3 2 1 5 4" OK
-run_test "3 2 4 1 5" OK
-run_test "3 2 4 5 1" OK
-run_test "3 2 5 1 4" OK
-run_test "3 2 5 4 1" OK
-run_test "3 4 1 2 5" OK
-run_test "3 4 1 5 2" OK
-run_test "3 4 2 1 5" OK
-run_test "3 4 2 5 1" OK
-run_test "3 4 5 1 2" OK
-run_test "3 4 5 2 1" OK
-run_test "3 5 1 2 4" OK
-run_test "3 5 1 4 2" OK
-run_test "3 5 2 1 4" OK
-run_test "3 5 2 4 1" OK
-run_test "3 5 4 1 2" OK
-run_test "3 5 4 2 1" OK
-run_test "4 1 2 3 5" OK
-run_test "4 1 2 5 3" OK
-run_test "4 1 3 2 5" OK
-run_test "4 1 3 5 2" OK
-run_test "4 1 5 2 3" OK
-run_test "4 1 5 3 2" OK
-run_test "4 2 1 3 5" OK
-run_test "4 2 1 5 3" OK
-run_test "4 2 3 1 5" OK
-run_test "4 2 3 5 1" OK
-run_test "4 2 5 1 3" OK
-run_test "4 2 5 3 1" OK
-run_test "4 3 1 2 5" OK
-run_test "4 3 1 5 2" OK
-run_test "4 3 2 1 5" OK
-run_test "4 3 2 5 1" OK
-run_test "4 3 5 1 2" OK
-run_test "4 3 5 2 1" OK
-run_test "4 5 1 2 3" OK
-run_test "4 5 1 3 2" OK
-run_test "4 5 2 1 3" OK
-run_test "4 5 2 3 1" OK
-run_test "4 5 3 1 2" OK
-run_test "4 5 3 2 1" OK
-run_test "5 1 2 3 4" OK
-run_test "5 1 2 4 3" OK
-run_test "5 1 3 2 4" OK
-run_test "5 1 3 4 2" OK
-run_test "5 1 4 2 3" OK
-run_test "5 1 4 3 2" OK
-run_test "5 2 1 3 4" OK
-run_test "5 2 1 4 3" OK
-run_test "5 2 3 1 4" OK
-run_test "5 2 3 4 1" OK
-run_test "5 2 4 1 3" OK
-run_test "5 2 4 3 1" OK
-run_test "5 3 1 2 4" OK
-run_test "5 3 1 4 2" OK
-run_test "5 3 2 1 4" OK
-run_test "5 3 2 4 1" OK
-run_test "5 3 4 1 2" OK
-run_test "5 3 4 2 1" OK
-run_test "5 4 1 2 3" OK
-run_test "5 4 1 3 2" OK
-run_test "5 4 2 1 3" OK
-run_test "5 4 2 3 1" OK
-run_test "5 4 3 1 2" OK
-run_test "5 4 3 2 1" OK
+run_test_five(){
+	run_test "1 2 3 4 5" OK
+	run_test "1 2 3 5 4" OK
+	run_test "1 2 4 3 5" OK
+	run_test "1 2 4 5 3" OK
+	run_test "1 2 5 3 4" OK
+	run_test "1 2 5 4 3" OK
+	run_test "1 3 2 4 5" OK
+	run_test "1 3 2 5 4" OK
+	run_test "1 3 4 2 5" OK
+	run_test "1 3 4 5 2" OK
+	run_test "1 3 5 2 4" OK
+	run_test "1 3 5 4 2" OK
+	run_test "1 4 2 3 5" OK
+	run_test "1 4 2 5 3" OK
+	run_test "1 4 3 2 5" OK
+	run_test "1 4 3 5 2" OK
+	run_test "1 4 5 2 3" OK
+	run_test "1 4 5 3 2" OK
+	run_test "1 5 2 3 4" OK
+	run_test "1 5 2 4 3" OK
+	run_test "1 5 3 2 4" OK
+	run_test "1 5 3 4 2" OK
+	run_test "1 5 4 2 3" OK
+	run_test "1 5 4 3 2" OK
+	run_test "2 1 3 4 5" OK
+	run_test "2 1 3 5 4" OK
+	run_test "2 1 4 3 5" OK
+	run_test "2 1 4 5 3" OK
+	run_test "2 1 5 3 4" OK
+	run_test "2 1 5 4 3" OK
+	run_test "2 3 1 4 5" OK
+	run_test "2 3 1 5 4" OK
+	run_test "2 3 4 1 5" OK
+	run_test "2 3 4 5 1" OK
+	run_test "2 3 5 1 4" OK
+	run_test "2 3 5 4 1" OK
+	run_test "2 4 1 3 5" OK
+	run_test "2 4 1 5 3" OK
+	run_test "2 4 3 1 5" OK
+	run_test "2 4 3 5 1" OK
+	run_test "2 4 5 1 3" OK
+	run_test "2 4 5 3 1" OK
+	run_test "2 5 1 3 4" OK
+	run_test "2 5 1 4 3" OK
+	run_test "2 5 3 1 4" OK
+	run_test "2 5 3 4 1" OK
+	run_test "2 5 4 1 3" OK
+	run_test "2 5 4 3 1" OK
+	run_test "3 1 2 4 5" OK
+	run_test "3 1 2 5 4" OK
+	run_test "3 1 4 2 5" OK
+	run_test "3 1 4 5 2" OK
+	run_test "3 1 5 2 4" OK
+	run_test "3 1 5 4 2" OK
+	run_test "3 2 1 4 5" OK
+	run_test "3 2 1 5 4" OK
+	run_test "3 2 4 1 5" OK
+	run_test "3 2 4 5 1" OK
+	run_test "3 2 5 1 4" OK
+	run_test "3 2 5 4 1" OK
+	run_test "3 4 1 2 5" OK
+	run_test "3 4 1 5 2" OK
+	run_test "3 4 2 1 5" OK
+	run_test "3 4 2 5 1" OK
+	run_test "3 4 5 1 2" OK
+	run_test "3 4 5 2 1" OK
+	run_test "3 5 1 2 4" OK
+	run_test "3 5 1 4 2" OK
+	run_test "3 5 2 1 4" OK
+	run_test "3 5 2 4 1" OK
+	run_test "3 5 4 1 2" OK
+	run_test "3 5 4 2 1" OK
+	run_test "4 1 2 3 5" OK
+	run_test "4 1 2 5 3" OK
+	run_test "4 1 3 2 5" OK
+	run_test "4 1 3 5 2" OK
+	run_test "4 1 5 2 3" OK
+	run_test "4 1 5 3 2" OK
+	run_test "4 2 1 3 5" OK
+	run_test "4 2 1 5 3" OK
+	run_test "4 2 3 1 5" OK
+	run_test "4 2 3 5 1" OK
+	run_test "4 2 5 1 3" OK
+	run_test "4 2 5 3 1" OK
+	run_test "4 3 1 2 5" OK
+	run_test "4 3 1 5 2" OK
+	run_test "4 3 2 1 5" OK
+	run_test "4 3 2 5 1" OK
+	run_test "4 3 5 1 2" OK
+	run_test "4 3 5 2 1" OK
+	run_test "4 5 1 2 3" OK
+	run_test "4 5 1 3 2" OK
+	run_test "4 5 2 1 3" OK
+	run_test "4 5 2 3 1" OK
+	run_test "4 5 3 1 2" OK
+	run_test "4 5 3 2 1" OK
+	run_test "5 1 2 3 4" OK
+	run_test "5 1 2 4 3" OK
+	run_test "5 1 3 2 4" OK
+	run_test "5 1 3 4 2" OK
+	run_test "5 1 4 2 3" OK
+	run_test "5 1 4 3 2" OK
+	run_test "5 2 1 3 4" OK
+	run_test "5 2 1 4 3" OK
+	run_test "5 2 3 1 4" OK
+	run_test "5 2 3 4 1" OK
+	run_test "5 2 4 1 3" OK
+	run_test "5 2 4 3 1" OK
+	run_test "5 3 1 2 4" OK
+	run_test "5 3 1 4 2" OK
+	run_test "5 3 2 1 4" OK
+	run_test "5 3 2 4 1" OK
+	run_test "5 3 4 1 2" OK
+	run_test "5 3 4 2 1" OK
+	run_test "5 4 1 2 3" OK
+	run_test "5 4 1 3 2" OK
+	run_test "5 4 2 1 3" OK
+	run_test "5 4 2 3 1" OK
+	run_test "5 4 3 1 2" OK
+	run_test "5 4 3 2 1" OK
+}
+# run_test_five
