@@ -1,10 +1,12 @@
 # Push Swap
 A project that implements an efficient sorting algorithm using two stacks and a limited set of operations.
 
+
+
 ## Overview
 Push Swap is a sorting algorithm project that challenges you to sort a stack of integers using two stacks (A and B) and a specific set of operations. The goal is to sort all numbers in stack A in ascending order while minimizing the number of operations used.
 
-## Algorithm: Osman Sort
+## Algorithm: Osman Sort (95%)
 The project implements the Osman sort algorithm, an efficient approach that achieves excellent performance with less than 700 operations for sorting 100 random numbers. Key features include:
 
 - **Operation-Optimal Pushing**: The algorithm intelligently pushes values from stack A to stack B by calculating and selecting moves that require the minimum number of operations
