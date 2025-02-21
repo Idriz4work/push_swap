@@ -18,6 +18,8 @@ void cleanup_and_exit(t_list **stack_a, t_list **stack_b, int status)
         ft_lstclear(stack_a, free);
     if (stack_b && *stack_b)
         ft_lstclear(stack_b, free);
+    if (status != EXIT_SUCCESS)
+        ft_putstr_fd("Error\n", 2); // Ensure error printed to stderr if exiting with failure
     exit(status);
 }
 
@@ -58,7 +60,7 @@ int process_values_two(char **values)
     {
         if (ft_atol(values[i]) > 2147483647 || ft_atol(values[i]) < -2147483648)
         {
-            ft_printf("Error\n");
+            ft_putstr_fd("Error\n", 2);
             return (-1);
         }
         i++;
@@ -75,6 +77,7 @@ void filler(char **values, t_list **stack_a, int i)
         newnode = (t_list *)malloc(sizeof(t_list));
         if (!newnode)
         {
+            ft_putstr_fd("Error\n", 2); // Error to stderr
             ft_lstclear(stack_a, free);
             exit(EXIT_FAILURE);
         }
@@ -91,16 +94,12 @@ t_list *fill_stack(char **values, t_list **stack_a, t_list **stack_b)
     i = 0;
     if (initialize_stack(stack_a, stack_b) == -1)
     {
-        ft_printf("Error\n");
+        ft_putstr_fd("Error\n", 2);
         return (NULL);
     }
     i = process_values_two(values);
     if (i == -1)
-    {
-        ft_lstclear(stack_a, free);
-        ft_lstclear(stack_b, free);
-        exit(EXIT_FAILURE);
-    }
+        cleanup_and_exit(stack_a, stack_b, EXIT_FAILURE);
     filler(values, stack_a, i);
     process_values(stack_a, stack_b);
     return (*stack_a);
@@ -113,15 +112,13 @@ int main(int argc, char **argv)
 
     stack_a = NULL;
     stack_b = NULL;
-    if (argc <= 2)
+    if (argc < 2)
         return (-1);
     if (handle_ops(argv) == -1)
         return (-2);
     stack_a = fill_stack(argv, &stack_a, &stack_b);
     if (stack_a == NULL)
         return (-3);
-    
-    // Clean up before exit
     ft_lstclear(&stack_a, free);
     ft_lstclear(&stack_b, free);
     return (0);
