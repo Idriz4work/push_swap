@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 # Source files
-SRCS = sources/process_stack.c sources/calculator_utils.c sources/osman_sort_utils.c sources/special_osman_ops.c sources/osman_calculator.c sources/osman_sort_algo.c \
+SRCS = sources/number_check.c sources/egde_case_two.c sources/process_stack.c sources/calculator_utils.c sources/osman_sort_utils.c sources/special_osman_ops.c sources/osman_calculator.c sources/osman_sort_algo.c \
        sources/input_validator.c sources/egde_case_handlers.c sources/pushswap.c sources/swapy_ops.c \
        sources/rotate_ops.c sources/push_ops.c sources/rev_rotate_ops.c
 
@@ -35,7 +35,7 @@ $(LIBFT):
 
 # Compile source files
 %.o: %.c
-	$(CC) $(CFLAGS) -c -no-pie $< -o $@ -Iincludes -I$(LIBFT_DIR) -I$(FTPRINT_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -Iincludes -I$(LIBFT_DIR) -I$(FTPRINT_DIR)
 
 # Cleaning rules
 clean:

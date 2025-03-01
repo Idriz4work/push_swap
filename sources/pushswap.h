@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:43 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/16 16:11:04 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/01 22:17:46 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct t_casehandler
 {
 	long	first;
 	long	second;
+	long	third;
 	long	last;
-	long	average;
 }			t_case;
 
 typedef struct t_up_or_down
@@ -74,27 +74,25 @@ void		update_up_down(t_updown *up_down, t_rot *rots);
 // Functions for Calculator
 // ----------------------------
 int			get_right_index(int index, t_list *stack_a);
-int	smallest(int a, int b, int c, int d);
+int			smallest(int a, int b, int c, int d);
 int			short_index_finder(int *number_ops, int length);
 int			find_next_largest(int top, t_list **stack_b);
 int			find_largest_position(t_list **stack_b);
-void		cost_of_gettop_a(int current, t_list **stack_a, 
-				t_rot *rots);
-void		cost_moving_position_b(int num, t_list **stack_b, 
-				t_rot *rots);
+void		cost_of_gettop_a(int current, t_list **stack_a, t_rot *rots);
+void		cost_moving_position_b(int num, t_list **stack_b, t_rot *rots);
 
 // ----------------------------
 // Hardcoded Functions for 3 and 4 Stack Size
 // ----------------------------
 // Main function declarations for handling different stack sizes
-void    handle_edge_three(t_list **stack_a, t_case *n);
-void    handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
-void    handle_edge_five(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_three(t_list **stack_a, t_case *n);
+void		handle_edge_four(t_list **stack_a, t_list **stack_b, t_case *n);
+void		handle_edge_five(t_list **stack_a, t_list **stack_b, t_case *n);
 
 // Helper function declarations
-void    handle_edge_three_two(t_list **stack_a, t_case *n);
-void    handle_edge_four_two(t_list **stack_a, t_case *n);
-int     find_min_position(t_list **stack);
+void		handle_edge_three_two(t_list **stack_a, t_case *n);
+void		handle_edge_four_two(t_list **stack_a, t_case *n);
+int			find_min_position(t_list **stack);
 
 // ----------------------------
 // Operations Functions
@@ -121,6 +119,9 @@ int			is_valid_number(char *str);
 int			handle_ops(char **argv);
 long		ft_atol(char *s);
 void		print_stack(t_list **stak);
+int			is_valid_number(char *str);
+int			is_valid_integer_range(long num);
+int			check_for_duplicates(char **argv, int current_index);
 
 // ----------------------------
 // Helper Functions
@@ -128,13 +129,11 @@ void		print_stack(t_list **stak);
 void		forwords_sorter(t_list **stack_b, int num_rotates);
 void		backwards_sorter(t_list **stack_b, int num_reverse_op);
 int			find_largest_position(t_list **stack_b);
-void cleanup_and_exit(t_list **stack_a, t_list **stack_b, int status);
-void process_values(t_list **stack_a, t_list **stack_b);
-int process_values_two(char **values);
+void		cleanup_and_exit(t_list **stack_a, t_list **stack_b, int status);
+void		process_values(t_list **stack_a, t_list **stack_b);
+int			process_values_two(char **values);
 
-void filler(char **values, t_list **stack_a, int i);
-t_list *fill_stack(char **values, t_list **stack_a, t_list **stack_b);
-
-
+void		filler(char **values, t_list **stack_a, int i);
+t_list		*fill_stack(char **values, t_list **stack_a, t_list **stack_b);
 
 #endif
