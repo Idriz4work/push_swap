@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 07:50:40 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/01 22:01:08 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/01 22:50:57 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	process_values(t_list **stack_a, t_list **stack_b)
 	n.second = 0;
 	value = ft_lstsize(*stack_a);
 	if (check_sorted(*stack_a) == 1)
-		cleanup_and_exit(stack_a, stack_b, EXIT_SUCCESS);
+		exit(0);
 	if (value == 2)
 	{
 		n.first = (long)((*stack_a)->content);
@@ -108,7 +108,5 @@ int	main(int argc, char **argv)
 	stack_a = fill_stack(argv, &stack_a, &stack_b);
 	if (stack_a == NULL)
 		return (-3);
-	ft_lstclear(&stack_a, free);
-	ft_lstclear(&stack_b, free);
 	return (0);
 }
